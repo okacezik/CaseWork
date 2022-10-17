@@ -13,6 +13,7 @@ namespace Business.Constants
         public static string PatientUpdated = "Patient has been updated...";
         public static string PatientsListed = "Patients were listed...";
         public static string PatientListed = "Patient was listed..";
+        public static string PatientNotFound = "No found...";
 
     }
 }

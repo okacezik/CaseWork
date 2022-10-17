@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concretes.EntityFramework
 {
-    public class CaseContext : DbContext
+    public class EfCaseContext : DbContext
     {
         //veritabanı ile bağlantı kuruldu
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=CaseDatabase;Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(@"Server=LAPTOP-AOONRL05;Database=CaseWorkDatabase;Trusted_Connection=true");
         }
 
         //Patient class'ı veritabanındaki Patients tablosu ile ilişkilendirildi

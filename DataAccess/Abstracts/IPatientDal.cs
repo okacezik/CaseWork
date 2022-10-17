@@ -1,4 +1,5 @@
 ﻿using Entities.Concretes;
+using Entities.Concretes.Concretes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace DataAccess.Abstracts
 {
     public interface IPatientDal : IEntityRepositoryBase<Patient>
     {
+        bool ExistPatient(Patient patient);
+        List<PatientDetailDto> GetAllPatientsDetails();
     }
 }

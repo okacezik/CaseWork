@@ -13,11 +13,10 @@ namespace Entities.Concretes
         public string IdentityNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public bool isSick { get; set; }
-        public DateTime CaseDate 
-        {
-            get { return CaseDate; }
-            set { CaseDate = DateTime.Now; } 
-        }
+        public bool IsSick { get; set; }
+        public bool HospitalizedCurrently { get; set; }
+        public bool InIcuCurrently { get; set; }
+        public bool Pending { get; set; }
+        public DateTime CaseDate { get; set; }
     }
 }

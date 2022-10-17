@@ -14,9 +14,9 @@ namespace DataAccess.Concretes.EntityFramework
     {
         public void Add(T entity)
         {
-            using(CaseContext context = new CaseContext())
+            using(EfCaseContext context = new EfCaseContext())
             {
-                var AddedTEntity = context.Entry(entity);
+                var AddedTEntity = context.Entry(entity);     
                 AddedTEntity.State = EntityState.Added;
                 context.SaveChanges();
             }
@@ -24,17 +24,17 @@ namespace DataAccess.Concretes.EntityFramework
 
         public void Delete(T entity)
         {
-            using( CaseContext context = new CaseContext())
+            using( EfCaseContext context = new EfCaseContext())
             {
-                var DeletedTEntity = context.Entry(entity);
-                DeletedTEntity.State = EntityState.Deleted;
-                context.SaveChanges();
+                var DeletedTEntity = context.Entry(entity);   //referans yakalama işlemi
+                DeletedTEntity.State = EntityState.Deleted;   //yakalanan referansın durumunu belirleme
+                context.SaveChanges();                        //değişiklikler kaydedildi
             } 
         }
 
         public T Get(Expression<Func<T, bool>> filter)
         {
-            using(CaseContext context = new CaseContext())
+            using(EfCaseContext context = new EfCaseContext())
             {
                 //return context.Set<T>().Find(filter);
                 return context.Set<T>().SingleOrDefault(filter);
@@ -43,18 +43,15 @@ namespace DataAccess.Concretes.EntityFramework
 
         public List<T> GetAll(Expression<Func<T, bool>> filter = null)
         {
-            using(CaseContext contex = new CaseContext())
+            using(EfCaseContext context = new EfCaseContext())
             {
-                return
-                    filter == null ?
-                    contex.Set<T>().ToList() :
-                    contex.Set<T>().Where(filter).ToList();
+                return filter == null ? context.Set<T>().ToList() : context.Set<T>().Where(filter).ToList();
             }
         }
 
         public void Update(T entity)
         {
-            using(CaseContext context = new CaseContext()){
+            using(EfCaseContext context = new EfCaseContext()){
                 var UpdatedTEntity = context.Entry(entity);
                 UpdatedTEntity.State = EntityState.Modified;
                 context.SaveChanges();

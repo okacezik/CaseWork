@@ -1,8 +1,10 @@
 ﻿using Business.Abstracts;
+using Business.BusinessRules;
 using Business.Constants;
 using Core.Utilites.Results;
 using DataAccess.Abstracts;
 using Entities.Concretes;
+using Entities.Concretes.Concretes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,8 +29,13 @@ namespace Business.Concretes
 
         public IResult Delete(Patient patient)
         {
-            _patientDal.Delete(patient);
-            return new SuccessResult(Messages.PatientDeleted);
+            var result = PatientBusinessRules.ExistPatientControl(_patientDal, patient);
+            if (result)
+            {
+                _patientDal.Delete(patient);
+                return new SuccessResult(Messages.PatientDeleted);
+            }
+            return new ErrorResult(Messages.PatientNotFound);
         }
 
         public IDataResult<Patient> Get(int PatientId)
@@ -43,16 +50,27 @@ namespace Business.Concretes
                 (Messages.PatientsListed, _patientDal.GetAll());
         }
 
+        public IDataResult<List<PatientDetailDto>> GetAllPatientsDetails()
+        {
+            return new SuccessDataResult<List<PatientDetailDto>>
+                (Messages.PatientsListed,_patientDal.GetAllPatientsDetails());
+        }
+
         public IDataResult<List<Patient>> GetAllPositive()
         {
             return new SuccessDataResult<List<Patient>>
-                (Messages.PatientsListed, _patientDal.GetAll(patient => patient.isSick == true));
+                (Messages.PatientsListed, _patientDal.GetAll(patient => patient.IsSick == true));
         }
 
         public IResult Update(Patient patient)
         {
-            _patientDal.Update(patient);
-            return new SuccessResult(Messages.PatientUpdated);
+            var result = PatientBusinessRules.ExistPatientControl(_patientDal, patient);
+            if (result)
+            {
+                _patientDal.Update(patient);
+                return new SuccessResult(Messages.PatientUpdated);
+            }
+            return new ErrorResult(Messages.PatientNotFound);
         }
     }
 }

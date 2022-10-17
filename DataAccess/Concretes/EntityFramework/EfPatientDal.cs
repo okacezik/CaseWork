@@ -1,5 +1,6 @@
 ﻿using DataAccess.Abstracts;
 using Entities.Concretes;
+using Entities.Concretes.Concretes;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,30 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concretes.EntityFramework
 {
-    public class EfPatientDal : EfEntityRepositoryBase<Patient> , IPatientDal
+    public class EfPatientDal : EfEntityRepositoryBase<Patient>, IPatientDal
     {
+        public bool ExistPatient(Patient patient)
+        {
+            using(EfCaseContext context = new EfCaseContext())
+            {
+                return context.Set<Patient>().Any(p => p.PatientId == patient.PatientId);
+            }
+        }
+
+        public List<PatientDetailDto> GetAllPatientsDetails()
+        {
+            using(EfCaseContext context = new EfCaseContext())
+            {
+                var result = from patient in context.Set<Patient>().ToList()
+                             select new PatientDetailDto
+                             {
+                                 PatientId = patient.PatientId,
+                                 IdentityNumber = patient.IdentityNumber,
+                                 IsSick = patient.IsSick,
+                                 CaseDate = patient.CaseDate
+                             };
+                return result.ToList();
+            }
+        }
     }
 }
