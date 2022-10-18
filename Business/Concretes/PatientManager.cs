@@ -27,18 +27,19 @@ namespace Business.Concretes
             return new SuccessResult(Messages.PatientAdded);
         }
 
-        public IResult Delete(Patient patient)
+        public IResult Delete(string identityNumber)
         {
-            var result = PatientBusinessRules.ExistPatientControl(_patientDal, patient);
+            var result = PatientBusinessRules.ExistPatientControl(_patientDal, identityNumber);
             if (result)
             {
-                _patientDal.Delete(patient);
+                _patientDal.Delete(_patientDal.Get(patient => patient.IdentityNumber.Equals(identityNumber)));
                 return new SuccessResult(Messages.PatientDeleted);
+       
             }
             return new ErrorResult(Messages.PatientNotFound);
         }
 
-        public IDataResult<Patient> Get(int PatientId)
+        public IDataResult<Patient> GetById(int PatientId)
         {
             return new SuccessDataResult<Patient>
                 (Messages.PatientListed,_patientDal.Get(patient => patient.PatientId == PatientId)); 
@@ -64,13 +65,23 @@ namespace Business.Concretes
 
         public IResult Update(Patient patient)
         {
-            var result = PatientBusinessRules.ExistPatientControl(_patientDal, patient);
+            var result = PatientBusinessRules.ExistPatientControl(_patientDal, patient.IdentityNumber);
             if (result)
             {
                 _patientDal.Update(patient);
                 return new SuccessResult(Messages.PatientUpdated);
             }
             return new ErrorResult(Messages.PatientNotFound);
+        }
+
+        public IDataResult<Patient> GetByIdentityNumber(string identityNumber)
+        {
+            var result = _patientDal.Get(patient => patient.IdentityNumber.Equals(identityNumber));
+            if(result == null)
+            {
+                return new ErrorDataResult<Patient>(Messages.PatientNotFound);
+            }
+            return new SuccessDataResult<Patient>(result);
         }
     }
 }

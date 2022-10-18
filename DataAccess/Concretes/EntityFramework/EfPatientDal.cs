@@ -13,11 +13,11 @@ namespace DataAccess.Concretes.EntityFramework
 {
     public class EfPatientDal : EfEntityRepositoryBase<Patient>, IPatientDal
     {
-        public bool ExistPatient(Patient patient)
+        public bool ExistPatient(string identityNumber)
         {
             using(EfCaseContext context = new EfCaseContext())
             {
-                return context.Set<Patient>().Any(p => p.PatientId == patient.PatientId);
+                return context.Set<Patient>().Any(p => p.IdentityNumber.Equals(identityNumber));
             }
         }
 

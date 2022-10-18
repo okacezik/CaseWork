@@ -13,9 +13,10 @@ namespace Business.Abstracts
     {
         IResult Add(Patient patient);
         IResult Update(Patient patient);
-        IResult Delete(Patient patient);
+        IResult Delete(string identityNumber);
         IDataResult<List<Patient>> GetAll();            //tüm hastaları listeler
-        IDataResult<Patient> Get(int PatientId);        //id bilgisine göre hasta listeler
+        IDataResult<Patient> GetById(int PatientId);     //id bilgisine göre hasta listeler
+        IDataResult<Patient> GetByIdentityNumber(string identityNumber);
         IDataResult<List<Patient>> GetAllPositive();    //tüm pozitif vakalı hastaları listeler
         IDataResult<List<PatientDetailDto>> GetAllPatientsDetails();
     }

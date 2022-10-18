@@ -15,5 +15,7 @@ namespace Business.Constants
         public static string PatientListed = "Patient was listed..";
         public static string PatientNotFound = "No found...";
 
+        public static string WelcomeToTheSystem = "Welcome admin...";
+        public static string AdminNotFound = "Admin no found...";
     }
 }

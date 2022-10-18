@@ -11,7 +11,7 @@ namespace DataAccess.Abstracts
 {
     public interface IPatientDal : IEntityRepositoryBase<Patient>
     {
-        bool ExistPatient(Patient patient);
+        bool ExistPatient(string identityNumber);
         List<PatientDetailDto> GetAllPatientsDetails();
     }
 }

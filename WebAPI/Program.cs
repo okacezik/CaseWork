@@ -1,6 +1,7 @@
 using Business.Abstracts;
 using Business.Concretes;
 using DataAccess.Abstracts;
+
 using DataAccess.Concretes.EntityFramework;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,22 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IPatientService, PatientManager>();
 builder.Services.AddSingleton<IPatientDal, EfPatientDal>();
 
+//bas
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("https://localhost:3000").AllowAnyHeader()
+                                                  .AllowAnyMethod().AllowAnyOrigin();
+                      });
+});
+
+//son
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,6 +42,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader().WithMethods("GET", "POST", "DELETE", "PUT"));
 
 app.UseAuthorization();
 

@@ -10,9 +10,9 @@ namespace Business.BusinessRules
 {
     public static class PatientBusinessRules
     {
-        public static bool ExistPatientControl(IPatientDal patientDal, Patient patient)
+        public static bool ExistPatientControl(IPatientDal patientDal, string identityNumber)
         {
-            return patientDal.ExistPatient(patient);
+            return patientDal.ExistPatient(identityNumber);
         } 
     }
 }

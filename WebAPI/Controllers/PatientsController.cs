@@ -19,7 +19,17 @@ namespace WebAPI.Controllers
         [HttpGet("getById")]
         public IActionResult GetPatient(int id)
         {
-            var result = _patientService.Get(id);
+            var result = _patientService.GetById(id);
+            return
+                result.Success == true ?
+                Ok(result) :
+                BadRequest(result);
+        }
+
+        [HttpGet("getByIdentityNumber")]
+        public IActionResult GetByIdentityNumber(string identityNumber)
+        {
+            var result = _patientService.GetByIdentityNumber(identityNumber);
             return
                 result.Success == true ?
                 Ok(result) :
@@ -67,9 +77,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("delete")]
-        public IActionResult DeletePatient(Patient patient)
+        public IActionResult DeletePatient(string identityNumber)
         {
-            var result = _patientService.Delete(patient);
+            var result = _patientService.Delete(identityNumber);
             return
                 result.Success == true ?
                 Ok(result) :
