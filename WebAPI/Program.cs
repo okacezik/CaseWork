@@ -16,6 +16,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IPatientService, PatientManager>();
 builder.Services.AddSingleton<IPatientDal, EfPatientDal>();
 
+builder.Services.AddSingleton<IAdminService, AdminManager>();
+builder.Services.AddSingleton<IAdminDal, EfAdminDal>();
+
 //bas
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";

@@ -1,5 +1,4 @@
 ﻿using Entities.Concretes;
-using Entities.Concretes.DTOS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstracts
 {
-    public interface IPatientDal : IEntityRepositoryBase<Patient>
+    public interface IAdminDal
     {
-        bool ExistPatient(string identityNumber);
-        List<PatientDetailDto> GetAllPatientsDetails();
+       Admin Get(Expression<Func<Admin,bool>> filter);
+       List<Admin> GetAll(Expression<Func<Admin, bool>> filter = null); 
     }
 }

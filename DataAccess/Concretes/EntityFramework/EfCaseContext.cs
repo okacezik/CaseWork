@@ -19,6 +19,7 @@ namespace DataAccess.Concretes.EntityFramework
 
         //Patient class'ı veritabanındaki Patients tablosu ile ilişkilendirildi
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<Admin> Admins { get; set; }
 
     }
 }

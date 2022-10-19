@@ -4,7 +4,7 @@ using Business.Constants;
 using Core.Utilites.Results;
 using DataAccess.Abstracts;
 using Entities.Concretes;
-using Entities.Concretes.Concretes;
+using Entities.Concretes.DTOS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
